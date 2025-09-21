@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    body {
+        background-color: #fdfaf6;
+        color: #4b2e2b;
+        font-family: 'Georgia', serif;
+    }
+
+    .jumbotron {
+        background-color: #fffaf5;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(139, 69, 19, 0.1);
+        margin-top: 50px;
+    }
+
+    h1 {
+        color: #5c3a2e;
+        border-bottom: 3px solid #8B4513;
+        display: inline-block;
+        margin-bottom: 1.5rem;
+        font-weight: bold;
+    }
+
+    form {
+        margin-top: 20px;
+    }
+
+    label {
+        font-weight: bold;
+        color: #4b2e2b;
+    }
+
+    input[type="text"],
+    input[type="file"],
+    input[type="number"],
+    select,
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #d2b48c;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        background-color: #fff;
+        color: #4b2e2b;
+    }
+
+    input[type="submit"] {
+        background-color: #8B4513;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-weight: bold;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #5c3a2e;
+    }
+</style>
+
+<div class="container">
+    <div class="jumbotron">
+
+        {% if form.instance.pk %}
+            <h1>Update Company Details</h1>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Update">
+            </form>
+        {% else %}
+            <h1>Add Company Details</h1>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Add">
+            </form>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}

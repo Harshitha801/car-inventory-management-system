@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    body {
+        background-color: #fdfaf6;
+        color: #4b2e2b;
+        font-family: 'Georgia', serif;
+    }
+
+    .jumbotron {
+        background-color: #fffaf5;
+        padding: 2rem 2.5rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(139, 69, 19, 0.1);
+        margin-top: 60px;
+        text-align: center;
+    }
+
+    h1 {
+        color: #5c3a2e;
+        margin-bottom: 30px;
+        font-weight: bold;
+        border-bottom: 3px solid #8B4513;
+        display: inline-block;
+        padding-bottom: 5px;
+    }
+
+    .btn-custom {
+        color: #fff;
+        font-weight: bold;
+        border-radius: 8px;
+        padding: 10px 20px;
+        margin: 10px;
+        width: 120px;
+    }
+
+    .btn-delete {
+        background-color: #8B4513;
+        border: none;
+    }
+
+    .btn-delete:hover {
+        background-color: #5c3a2e;
+    }
+
+    .btn-cancel {
+        background-color: #a0522d;
+        border: none;
+    }
+
+    .btn-cancel:hover {
+        background-color: #7b3f23;
+    }
+</style>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1>Do you want to delete <br> "{{ company.name }}"?</h1>
+
+        <form method="POST" style="display: inline-block;">
+            {% csrf_token %}
+            <input type="submit" class="btn btn-custom btn-delete" value="Delete">
+        </form>
+
+        <a href="{% url 'list' %}" class="btn btn-custom btn-cancel">Cancel</a>
+    </div>
+</div>
+{% endblock %}

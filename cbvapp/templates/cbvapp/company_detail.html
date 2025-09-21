@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    body {
+        background-color: #fdfaf6;
+        color: #4b2e2b;
+        font-family: 'Georgia', serif;
+    }
+
+    .jumbotron {
+        padding: 2rem 2rem;
+        background-color: transparent;
+    }
+
+    .company-card {
+        background-color: #fff;
+        border-left: 6px solid #8B4513;
+        box-shadow: 0 4px 8px rgba(139, 69, 19, 0.1);
+        transition: transform 0.2s;
+        border-radius: 12px;
+    }
+
+    .company-card:hover {
+        transform: scale(1.01);
+        box-shadow: 0 8px 16px rgba(139, 69, 19, 0.2);
+    }
+
+    .product-card {
+        background-color: #fffaf5;
+        border: 1px solid #d2b48c;
+        border-radius: 12px;
+        padding: 1rem;
+        transition: transform 0.2s;
+    }
+
+    .product-card:hover {
+        transform: scale(1.02);
+        box-shadow: 0 6px 12px rgba(139, 69, 19, 0.15);
+    }
+
+    .card-title {
+        color: #5a3221;
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+
+    .section-title {
+        color: #5c3a2e;
+        border-bottom: 4px solid #8B4513;
+        font-size: 1.75rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        display: inline-block;
+    }
+
+    .btn-custom {
+        color: #fff;
+        font-weight: bold;
+        border-radius: 8px;
+        width: 100px;
+    }
+
+    .btn-update {
+        background-color: #6b4d3b;
+    }
+
+    .btn-delete {
+        background-color: #a0522d;
+    }
+
+    img.logo {
+        height: 80px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        border: 2px solid #d2b48c;
+    }
+</style>
+
+<title>{{ mycompanies.name }} - Company Details</title>
+<div class="container">
+    <div class="jumbotron">
+        <div class="container my-5">
+
+            <!-- Company Info -->
+            <div class="card company-card p-4 mb-5">
+                <h1 class="section-title">{{ mycompanies.name }} Company Details</h1>
+                <p><strong>CEO:</strong> {{ mycompanies.ceo }}</p>
+                <p><strong>Origin:</strong> {{ mycompanies.origin }}</p>
+                <p><strong>Established Year:</strong> {{ mycompanies.est_year }}</p>
+                <div class="d-flex gap-3 mt-3">
+                    <a href="{% url 'update' pk=mycompanies.id %}" class="btn btn-custom btn-update">Update</a>
+                    <a href="{% url 'delete' pk=mycompanies.id %}" class="btn btn-custom btn-delete">Delete</a>
+                </div>
+            </div>
+
+            <!-- Company Logo -->
+            <div class="text-center">
+                <img src="{{ mycompanies.logo.url }}" alt="{{ mycompanies.name }} Logo" class="logo">
+            </div>
+
+            <!-- Products -->
+            <h2 class="section-title">{{ mycompanies.name }} Products</h2>
+            <div class="row">
+                {% for prod in mycompanies.company.all %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card product-card h-100">
+                        <h5 class="card-title">{{ prod.Product_name }}</h5>
+                        <ul class="list-unstyled">
+                            <li><strong>Color:</strong> {{ prod.color }}</li>
+                            <li><strong>Price:</strong> ₹{{ prod.price }}</li>
+                            <li><strong>Seat Capacity:</strong> {{ prod.seat_capacity }}</li>
+                            <li><strong>Fuel Type:</strong> {{ prod.fuel_type }}</li>
+                            <li><strong>Mileage:</strong> {{ prod.Mileage }} kmpl</li>
+                        </ul>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
